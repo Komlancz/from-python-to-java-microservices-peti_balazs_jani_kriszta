@@ -19,6 +19,10 @@ public class ReviewDaoJdbc implements ReviewDao {
 //    public ArrayList<Review> reviews = new ArrayList<>();
     private String sql;
 
+    /**
+     * This method performs the singleton
+     * @return RevievDaoJdbc's instance
+     */
     public static ReviewDaoJdbc getInstance(){
         if (instance == null){
             instance = new ReviewDaoJdbc();
@@ -27,6 +31,10 @@ public class ReviewDaoJdbc implements ReviewDao {
         return instance;
     }
 
+    /**
+     * This method get a review object, create an sql INSERT query and upload that.
+     * @param reviewModel - not null.
+     */
     public void add(Review reviewModel) {
         int clientId = getClientId(reviewModel.getClientID());
         String productName = reviewModel.getProductName();
@@ -41,12 +49,21 @@ public class ReviewDaoJdbc implements ReviewDao {
         logger.debug("Save to database | Review model: "+reviewModel);
     }
 
+    /**
+     * This method get a review key and delete it from the database.
+     * @param reviewKey - not null.
+     */
     public void remove(int reviewKey) {
         sql = "DELETE FROM review WHERE review_key='"+reviewKey+"';";
         executeQuery(sql);
         logger.debug("Delete from database | ReviewKey: "+reviewKey);
     }
 
+    /**
+     * This method get a client id and search review(s) whose match
+     * @param clientID - not null.
+     * @return List of review object(s).
+     */
     public ArrayList<Review> getByClientID(int clientID) {
         sql = "SELECT * FROM review WHERE id="+clientID+";";
         logger.debug("Get a review by client_id("+clientID+") | Review model: "+createReviewModel(sql));
