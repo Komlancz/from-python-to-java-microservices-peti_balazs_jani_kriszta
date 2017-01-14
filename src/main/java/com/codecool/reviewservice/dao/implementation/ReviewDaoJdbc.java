@@ -16,12 +16,11 @@ public class ReviewDaoJdbc implements ReviewDao {
     private static final Logger logger = LoggerFactory.getLogger(ReviewDaoJdbc.class);
     private DBConnection connection = new DBConnection();
     private static ReviewDaoJdbc instance = null;
-//    public ArrayList<Review> reviews = new ArrayList<>();
     private String sql;
 
     /**
      * This method performs the singleton
-     * @return RevievDaoJdbc's instance
+     * @return ReviewDaoJdbc's instance
      */
     public static ReviewDaoJdbc getInstance(){
         if (instance == null){
@@ -32,8 +31,8 @@ public class ReviewDaoJdbc implements ReviewDao {
     }
 
     /**
-     * This method get a review object, create an sql INSERT query and upload that.
-     * @param reviewModel - not null.
+     * This method gets a review object, creates an sql INSERT query and uploads that.
+     * @param reviewModel not null.
      */
     public void add(Review reviewModel) {
         int clientId = getClientId(reviewModel.getClientID());
@@ -50,18 +49,17 @@ public class ReviewDaoJdbc implements ReviewDao {
     }
 
     /**
-     * This method get a review key and delete it from the database.
-     * @param reviewKey - not null.
+     * This method gets a review key and deletes it from the database.
+     * @param reviewKey not null.
      */
     public void remove(int reviewKey) {
         sql = "DELETE FROM review WHERE review_key='"+reviewKey+"';";
         executeQuery(sql);
         logger.debug("Delete from database | ReviewKey: "+reviewKey);
     }
-
     /**
      * This method get a client id and search review(s) whose match
-     * @param clientID - not null.
+     * @param clientID not null.
      * @return List of review object(s).
      */
     public ArrayList<Review> getByClientID(int clientID) {
@@ -70,22 +68,42 @@ public class ReviewDaoJdbc implements ReviewDao {
         return createReviewModel(sql);
     }
 
+    /**
+     * This method gets a product name and searches review(s) whose match
+     * @param productName not null.
+     * @return Lis of review object(s).
+     */
     public ArrayList<Review> getByProductName(String productName) {
         sql = "SELECT * FROM review WHERE product_name='"+productName+"';";
         logger.debug("Get a review by product_name("+productName+") | Review model: "+createReviewModel(sql));
         return createReviewModel(sql);
     }
-
+    /**
+     * This method gets a product name and searches review(s) whose match and the status is APPROVED
+     * @param productName not null.
+     * @return Lis of review object(s).
+     */
     public ArrayList<Review> getApprovedByProductName(String productName) {
         sql = "SELECT * FROM review WHERE product_name='"+productName+"' and status='APPROVED';";
         logger.debug("Get a review by product_name "+productName+" if status is APPROVED | Review model: "+createReviewModel(sql));
         return createReviewModel(sql);
     }
+    /**
+     * This method gets a client id and searches review(s) whose match and the status is APPROVED
+     * @param clientID not null.
+     * @return Lis of review object(s).
+     */
     public ArrayList<Review> getApprovedByClientId(int clientID) {
         sql = "SELECT * FROM review WHERE client_id="+clientID+" and status='APPROVED';";
         logger.debug("Get a review by client_id "+clientID+" if status is APPROVED | Review model: "+createReviewModel(sql));
         return createReviewModel(sql);
     }
+
+    /**
+     * This method searches review by review key and updates status
+     * @param review_key not null.
+     * @param newStatus not null.
+     */
     public void updateStatus(String review_key, String newStatus){
         sql = "UPDATE review SET status='"+newStatus+"' WHERE review_key='"+review_key+"';";
         executeQuery(sql);

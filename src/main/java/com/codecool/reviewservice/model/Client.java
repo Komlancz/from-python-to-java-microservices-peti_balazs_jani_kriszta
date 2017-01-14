@@ -10,8 +10,8 @@ public class Client {
 
     /**
      * This method has to generate an (UUID) APIKey if it has not got one yet.
-     * @param name - not null.
-     * @param email - not null.
+     * @param name not null.
+     * @param email not null.
      */
     public Client(String name, String email){
         this.name = name;
@@ -21,9 +21,9 @@ public class Client {
 
     /**
      *
-     * @param name - not null.
-     * @param email - not null.
-     * @param APIKey - not null.
+     * @param name not null.
+     * @param email not null.
+     * @param APIKey not null.
      */
     public Client(String name, String email, String APIKey){
         this.name = name;
@@ -32,7 +32,7 @@ public class Client {
     }
 
     /**
-     * @param id - not null.
+     * @param id not null.
      */
     public void setId(int id) {
         this.id = id;

@@ -19,10 +19,10 @@ public class Review {
 
     /**
      * This method has to generate an (UUID) reviewKey if it has not got one yet.
-     * @param clientID  - not null.
-     * @param productName - not null and it has to be uppercase without any whitespace.
-     * @param comment - not null.
-     * @param rating - not null.
+     * @param clientID not null.
+     * @param productName not null and it has to be uppercase without any whitespace.
+     * @param comment not null.
+     * @param rating not null.
      */
 
 
@@ -40,12 +40,12 @@ public class Review {
 
     /**
      *
-     * @param clientID - not null.
-     * @param productName - not null and it has to be uppercase without any whitespace.
-     * @param comment - not null.
-     * @param rating - not null.
-     * @param reviewKey - not null.
-     * @param status - not null.
+     * @param clientID not null.
+     * @param productName not null and it has to be uppercase without any whitespace.
+     * @param comment not null.
+     * @param rating not null.
+     * @param reviewKey not null.
+     * @param status not null.
      */
 //    Constructor with reviewKey
     public Review(int clientID, String productName, String comment, int rating, String reviewKey, String status) {
@@ -61,7 +61,7 @@ public class Review {
     }
     /**
      *
-     * @return - the current status of the review
+     * @return the current status of the review
      */
     public String getStatus() {
         return status;
@@ -69,7 +69,7 @@ public class Review {
 
     /**
      * This method set the current review's status to Approved.
-     * @return - Nothing.
+     * @return Nothing.
      */
     public void setStatusApproved() {
         logger.info("Set status to: " + Status.APPROVED);
@@ -78,7 +78,7 @@ public class Review {
 
     /**
      * This method set the current review's status to Denied.
-     * @return - Nothing.
+     * @return Nothing.
      */
     public void setStatusDenied() {
         logger.info("Set status to: " + Status.DENIED);
@@ -87,8 +87,8 @@ public class Review {
 
     /**
      * This method converts the product name to uppercase and deletes the spaces
-     * @param prodName - not null.
-     * @return . Uppercase version of prodName without space.
+     * @param prodName not null.
+     * @return Uppercase version of prodName without space.
      */
     private String handleProductName(String prodName){
         return prodName.replace(" ", "").toUpperCase();
@@ -96,7 +96,7 @@ public class Review {
 
     /**
      *
-     * @return - name of the review's product.
+     * @return name of the review's product.
      */
     public String getProductName() {
         return productName;
@@ -111,42 +111,42 @@ public class Review {
     }
 
     /**
-     * @return - current review's id.
+     * @return current review's id.
      */
     public String getId() {
         return id;
     }
 
     /**
-     * @return - Id of the client who sent the review.
+     * @return Id of the client who sent the review.
      */
     public int getClientID() {
         return clientID;
     }
 
     /**
-     * @return - text of the comment.
+     * @return text of the comment.
      */
     public String getComment() {
         return comment;
     }
 
     /**
-     * @return - value of the rating.
+     * @return value of the rating.
      */
     public int getRating() {
         return rating;
     }
 
     /**
-     * @return - generated review key.
+     * @return generated review key.
      */
     public String getReviewKey() {
         return reviewKey;
     }
 
     /**
-     * @return - Client_id: id, Product name: prodName, Review: comment's text, Ratings: value of rating,
+     * @return Client_id: id, Product name: prodName, Review: comment's text, Ratings: value of rating,
      * Review Key: review key, Status: status of review - in a string
      */
     @Override
