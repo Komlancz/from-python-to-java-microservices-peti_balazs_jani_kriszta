@@ -1,0 +1,8 @@
+com.codecool.reviewservice
+com.codecool.reviewservice.controller
+com.codecool.reviewservice.dao
+com.codecool.reviewservice.dao.connection
+com.codecool.reviewservice.dao.implementation
+com.codecool.reviewservice.email
+com.codecool.reviewservice.errorHandling
+com.codecool.reviewservice.model
