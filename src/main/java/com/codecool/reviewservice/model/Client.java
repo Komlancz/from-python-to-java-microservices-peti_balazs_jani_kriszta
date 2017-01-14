@@ -9,7 +9,7 @@ public class Client {
     String email;
 
     /**
-     * This method has to generate an (UUID) APIKey if it did not got yet.
+     * This method has to generate an (UUID) APIKey if it has not got one yet.
      * @param name - not null.
      * @param email - not null.
      */

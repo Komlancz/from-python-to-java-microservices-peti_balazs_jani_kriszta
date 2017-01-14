@@ -18,7 +18,7 @@ public class Review {
     private String reviewKey;
 
     /**
-     *
+     * This method has to generate an (UUID) reviewKey if it has not got one yet.
      * @param clientID  - not null.
      * @param productName - not null and it has to be uppercase without any whitespace.
      * @param comment - not null.
