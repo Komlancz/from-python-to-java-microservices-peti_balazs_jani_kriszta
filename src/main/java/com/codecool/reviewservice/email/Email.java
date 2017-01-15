@@ -1,9 +1,5 @@
 package com.codecool.reviewservice.email;
 
-/**
- * Created by krisztinabaranyai on 04/01/2017.
- */
-
 import com.codecool.reviewservice.dao.ClientDao;
 import com.codecool.reviewservice.dao.ReviewDao;
 import com.codecool.reviewservice.dao.implementation.ClientDaoJdbc;
@@ -17,7 +13,11 @@ import javax.mail.internet.MimeMessage;
 import java.util.Date;
 import java.util.Properties;
 import java.util.ResourceBundle;
-
+/**
+ * The Email class handles everything related to the applications email-sending features.
+ * To be able to use the application properly, you need to create a file (emaildata.properties) in the 'resources' directory,
+ * and provide the following data: address=youremail@gmail.com, password=youremailaccountpassword
+ */
 
 public class Email {
     private static ReviewDao reviews = ReviewDaoJdbc.getInstance();
@@ -30,33 +30,53 @@ public class Email {
     String to;
     String subject;
     String body;
-
+    /**
+     * @return the 'to' email address.
+     */
     public String getTo() {
         return to;
     }
-
+    /**
+     * @return the 'from' email address.
+     */
     public String getFROM() {
         return FROM;
     }
-
+    /**
+     * @return the email subject
+     */
     public String getSubject() {
         return subject;
     }
-
+    /**
+     * @return the email text
+     */
     public String getBody() {
         return body;
     }
+        /**
+         * @return the password of the sender account.
+         */
 
     public String getPassword() {
         return password;
     }
-
-    public Email(String to, String subject, String body) {
+    /**
+     * @param to      Email address of the receiver.
+     * @param subject Email address of the sender.
+     * @param body    The text of the message.
+    */
+public Email(String to, String subject, String body) {
         this.to = to;
         this.subject = subject;
         this.body = body;
     }
 
+    /**
+     * This method get a client object (who registered) and builds the body and subject of an Email object,
+     * with the client email address, subject, and body then calls the sendMail() method which sends the email.
+     * @param client A Client object.
+     */
     public static void newClientEmail (Client client) {
         String subject = "Welcome to the Horseshoe Review Service";
         String body = "Dear Madam/Sir,\n" +
@@ -69,7 +89,14 @@ public class Email {
         Email newEmail = new Email(client.getEmail(), subject, body);
         sendEmail(newEmail);
     }
-
+    /**
+     *  This method get a review object (which waiting for moderation) and builds the body about two choice
+     *  first is accept -generates a 'http://localhost:61000/changeStatus/" + client.getAPIKey() + "/" + review.getReviewKey()+ "/approved"'- link
+     *  second is deny - generates a 'http://localhost:61000/changeStatus/" + client.getAPIKey() + "/" + review.getReviewKey()+ "/denied"'- link
+     *  and subject of an Email object.
+     * then calls the sendMail() method which sends the email.
+     * @param review A Review object.
+     */
     public static void ReviewForModerationEmail(Review review){
         Client client = clients.getById(review.getClientID());
 
@@ -90,6 +117,11 @@ public class Email {
 
     }
 
+    /**
+     * This method sets the properties of the SMTP connection (Whis is in this case is gmail smtp connection) and then
+     * creates a Message object and sends it.
+     * @param email An Email object.
+     */
     private static void sendEmail(Email email) {
         final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
         // Get a Properties object
