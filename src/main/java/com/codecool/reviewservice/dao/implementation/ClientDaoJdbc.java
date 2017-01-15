@@ -16,7 +16,10 @@ public class ClientDaoJdbc implements ClientDao {
     private DBConnection connection = new DBConnection();
     private static ClientDaoJdbc instance = null;
     private String sql;
-
+    /**
+     * This method performs the singleton
+     * @return ClientDaoJdbc's instance
+     */
     public static ClientDaoJdbc getInstance(){
         if(instance == null){
             instance = new ClientDaoJdbc();
@@ -24,8 +27,10 @@ public class ClientDaoJdbc implements ClientDao {
         }
         return instance;
     }
-
-    @Override
+    /**
+     * This method gets a client object, creates an sql INSERT query and uploads that to the database.
+     * @param clientModel not null.
+     */
     public void add(Client clientModel) {
         String APIKey = clientModel.getAPIKey();
         String name = clientModel.getName();
@@ -36,22 +41,31 @@ public class ClientDaoJdbc implements ClientDao {
         logger.debug("Saving to database: {}", clientModel);
         executeQuery(sql);
     }
-
-    @Override
+    /**
+     * This method gets an API key and deletes the client from the database where api key is same.
+     * @param APIKey not null.
+     */
     public void remove(String APIKey) {
         sql = "DELETE FROM client WHERE api_key='" + APIKey + "';";
         logger.debug("Deleting client with API key {}", APIKey);
         executeQuery(sql);
     }
 
-    @Override
+    /**
+     * This method gets an id search it in database and create a client object with details.
+     * @param id not null.
+     * @return Client object which has same id
+     */
     public Client getById(int id) {
         sql = "SELECT * FROM client WHERE id='" + id + "';";
         logger.debug("Selecting client with id {}", id);
         return createClientModel(sql);
     }
-
-    @Override
+    /**
+     * This method gets an APIKey search it in database and create a client object with details.
+     * @param APIKey not null.
+     * @return Client object which has same APIKey
+     */
     public Client getByAPIKey(String APIKey) {
         sql = "SELECT * FROM client WHERE api_key='" + APIKey + "';";
         logger.debug("Selecting client with API key {}", APIKey);

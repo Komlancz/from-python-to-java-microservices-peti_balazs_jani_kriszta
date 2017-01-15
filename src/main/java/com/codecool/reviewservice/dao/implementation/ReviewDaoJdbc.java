@@ -31,7 +31,7 @@ public class ReviewDaoJdbc implements ReviewDao {
     }
 
     /**
-     * This method gets a review object, creates an sql INSERT query and uploads that.
+     * This method gets a review object, creates an sql INSERT query and uploads that to the database.
      * @param reviewModel not null.
      */
     public void add(Review reviewModel) {
@@ -49,7 +49,7 @@ public class ReviewDaoJdbc implements ReviewDao {
     }
 
     /**
-     * This method gets a review key and deletes it from the database.
+     * This method gets an review key and deletes the review from the database where review key is same.
      * @param reviewKey not null.
      */
     public void remove(int reviewKey) {
