@@ -27,7 +27,6 @@ public class ReviewController {
 
 
     public static String newReview(Request request, Response response) throws IOException, URISyntaxException, InvalidClient {
-        System.out.println("kaki");
         String APIKey = request.params("APIKey");
 
         if (!validateClient(APIKey)) {
